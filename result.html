@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Prediction Result</h1>
+
+    <div class="card shadow p-4">
+        <h3 class="mb-3">Input Values:</h3>
+        <ul class="list-group">
+            {% for feature, value in input_values.items() %}
+            <li class="list-group-item"><strong>{{ feature }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3 class="mt-4">Predicted Attack Type:</h3>
+        <div class="alert alert-danger text-center fs-4 fw-bold">
+            {{ prediction }}
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ url_for('main.predict') }}" class="btn btn-primary">Try Again</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

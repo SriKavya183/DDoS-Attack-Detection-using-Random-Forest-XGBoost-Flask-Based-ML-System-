@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">DDoS Attack Prediction</h1>
+
+    <!-- Introduction Section -->
+    <div class="card bg-primary text-white p-4 mb-4">
+        <h2>What is this Project?</h2>
+        <p>
+            This project detects **Distributed Denial of Service (DDoS) Attacks** in network traffic 
+            using Machine Learning. It analyzes input features such as protocol type, packet size, 
+            flow duration, and other network parameters to classify whether the traffic is normal 
+            or under attack.
+        </p>
+    </div>
+
+    <!-- Problem Statement -->
+    <div class="card bg-danger text-white p-4 mb-4">
+        <h2>Problem Statement</h2>
+        <p>
+            DDoS attacks overwhelm a system by flooding it with traffic, disrupting services. 
+            Traditional security measures struggle to detect **sophisticated attack patterns**. 
+            This project aims to provide an **automated, ML-based** approach to identifying such attacks.
+        </p>
+    </div>
+
+    <!-- Input Fields Information -->
+    <h2 class="mb-3">Input Fields Information</h2>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Feature Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Protocol</td><td>Indicates network protocol type (e.g., TCP, UDP)</td></tr>
+            <tr><td>Flow Duration</td><td>Total time of network flow</td></tr>
+            <tr><td>Total Fwd Packets</td><td>Number of packets sent forward</td></tr>
+            <tr><td>Total Backward Packets</td><td>Number of packets sent backward</td></tr>
+            <tr><td>Flow Bytes/s</td><td>Rate of bytes per second</td></tr>
+        </tbody>
+    </table>
+
+    <!-- Algorithm Information -->
+    <h2 class="mb-3">Algorithm Information</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-info text-white p-3">
+                <h4>XGBoost Classifier</h4>
+                <p>
+                    We use **XGBoost**, a high-performance, optimized gradient boosting algorithm 
+                    that efficiently classifies network traffic patterns.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-warning text-white p-3">
+                <h4>Min-Max Scaling</h4>
+                <p>
+                    The input features are normalized using **Min-Max Scaling** to improve model accuracy.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Output Information -->
+    <h2 class="mb-3 mt-4">Output Information</h2>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Predicted Class</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Benign</td><td>Normal network traffic</td></tr>
+            <tr><td>DrDoS_DNS</td><td>DNS-based DDoS attack detected</td></tr>
+            <tr><td>DrDoS_UDP</td><td>UDP-based DDoS attack detected</td></tr>
+            <tr><td>WebDDoS</td><td>Web-based DDoS attack detected</td></tr>
+        </tbody>
+    </table>
+
+    <!-- Project Flow Accordion -->
+    <h2 class="mb-3 mt-4">Project Flow</h2>
+    <div class="accordion" id="projectFlow">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#step1">
+                    Step 1: Data Collection
+                </button>
+            </h2>
+            <div id="step1" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    The dataset is collected from network traffic logs, containing both benign and attack samples.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#step2">
+                    Step 2: Data Preprocessing
+                </button>
+            </h2>
+            <div id="step2" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    The data is cleaned, missing values are handled, and features are scaled using Min-Max Scaler.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#step3">
+                    Step 3: Model Training
+                </button>
+            </h2>
+            <div id="step3" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    The XGBoost model is trained on preprocessed data and evaluated for accuracy.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#step4">
+                    Step 4: Real-Time Prediction
+                </button>
+            </h2>
+            <div id="step4" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    The user inputs network parameters, and the model predicts the type of network traffic.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Implementation -->
+    <h2 class="mb-3 mt-4">Project Implementation</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card bg-success text-white p-3">
+                <h4>1. Flask Backend</h4>
+                <p>The Flask framework is used to create a web-based interface for the model.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-secondary text-white p-3">
+                <h4>2. Model Deployment</h4>
+                <p>The trained XGBoost model is integrated into the Flask app for predictions.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-danger text-white p-3">
+                <h4>3. UI Design</h4>
+                <p>Bootstrap is used for a responsive and user-friendly interface.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Try Prediction Button -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('main.predict') }}" class="btn btn-lg btn-primary">Try Prediction</a>
+    </div>
+</div>
+{% endblock %}
